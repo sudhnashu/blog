@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog</title>
+  <link rel="stylesheet" href="/styles/main.css">
+  <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a id="newPostBtn" href="/protected/new">New Post</a>
+      <a href="/protected/posts" id="newPostBtn">All_Posts</a>
+      <form action="/logout" method="post" style = "display : inline">
+        <input type="submit" value="Logout" id="newPostBtn">
+    </form>
+    </div>
+  </nav>
+  <div class="container">
+    <h1>My Posts</h1>
+    
+    <ul id="postsList">
+      <% posts.forEach(post=> { %>
+        <li>
+          <h2>
+            <%=post.title%>
+          </h2>
+          <small>
+            <%=post.date %>
+          </small>
+          <p>
+            <%=post.content%>
+          </p>
+          <small>By: <%=post.author%> </small>
+          <a class="edit" href="/protected/edit/<%= post.Blogid %>">Edit</a>
+          <a class="delete" href="/protected/api/posts/delete/<%= post.Blogid %>">Delete</a>
+        </li>
+        <% }); %>
+    </ul>
+  </div>
+
+</body>
+
+</html>

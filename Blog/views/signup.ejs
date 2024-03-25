@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="/styles/signup.css">
+</head>
+<body>
+    <div class="container">
+        <h1>SignUp</h1>
+        <form id="signupForm" action="/signup" method="post">
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required><br>
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password"><br>
+            <input type="submit" value="Submit">
+            <ul id="errorDisplay" class="error-message"></ul> <!-- Error message container -->
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            var password = document.getElementById('password').value;
+            var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()-_=+{}[\]|\\;:'",.<>?`])[A-Za-z\d!@#$%^&*()-_=+{}[\]|\\;:'",.<>?`]{8,}$/;
+            var errorMessages = [];
+
+            if (password.length < 8) {
+                errorMessages.push("Password must be at least 8 characters long.");
+            }
+            if (!/[a-z]/.test(password)) {
+                errorMessages.push("Password must contain at least one lowercase letter.");
+            }
+            if (!/[A-Z]/.test(password)) {
+                errorMessages.push("Password must contain at least one uppercase letter.");
+            }
+            if (!/\d/.test(password)) {
+                errorMessages.push("Password must contain at least one digit.");
+            }
+            if (!/[!@#$%^&*()-_=+{}[\]|\\;:'",.<>?`]/.test(password)) {
+                errorMessages.push("Password must contain at least one special character.");
+            }
+
+            if (errorMessages.length > 0) {
+                event.preventDefault(); // Prevent form submission
+                var errorDisplay = document.getElementById('errorDisplay');
+                errorDisplay.innerHTML = errorMessages.map(message => `<li>${message}</li>`).join(''); // Display error messages with bullet points
+            } else {
+                // Clear error message if password is valid
+                document.getElementById('errorDisplay').innerHTML = '';
+            }
+        });
+    </script>
+</body>
+</html>
